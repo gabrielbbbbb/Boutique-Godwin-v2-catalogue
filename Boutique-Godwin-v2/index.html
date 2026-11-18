@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Boutique-Godwin Informatique : découvrez nos ordinateurs et accessoires informatiques."
+    />
+    <meta name="theme-color" content="#0b1f46" />
+    <title>Boutique-Godwin Informatique | La technologie en confiance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <span>Votre partenaire informatique</span
+        ><span>Conseils · Qualité · Confiance</span>
+      </div>
+    </div>
+    <header class="header">
+      <div class="container nav">
+        <a class="brand" href="index.html"
+          ><img
+            src="assets/images/boutique-godwin-logo.jpeg"
+            alt="Logo Boutique-Godwin"
+          /><span><b>BOUTIQUE-GODWIN</b><small>INFORMATIQUE</small></span></a
+        >
+        <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu">
+          ☰
+        </button>
+        <nav id="navLinks">
+          <a class="active" href="#accueil">Accueil</a
+          ><a href="#catalogue">Nos produits</a
+          ><a href="#atouts">Nos engagements</a><a href="#contact">Contact</a>
+        </nav>
+        <a class="header-cta" href="#catalogue"
+          >Découvrir la boutique <span>↗</span></a
+        >
+      </div>
+    </header>
+    <main>
+      <section class="hero" id="accueil">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <i></i> BOUTIQUE INFORMATIQUE · LOMÉ, TOGO
+            </div>
+            <h1>La technologie<br />au service de <em>vos ambitions.</em></h1>
+            <p>
+              Ordinateurs, équipements et accessoires informatiques : trouvez le
+              matériel adapté à vos besoins avec l'accompagnement de
+              Boutique-Godwin.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#catalogue"
+                >Explorer les produits <span>→</span></a
+              ><a class="btn outline" href="#contact">Nous contacter</a>
+            </div>
+            <div class="hero-note">
+              <span class="note-icon">✦</span
+              ><span
+                ><b>Un choix en toute confiance</b
+                ><small
+                  >Des conseils pour trouver le bon équipement.</small
+                ></span
+              >
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="halo"></div>
+            <img
+              src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&auto=format&fit=crop&q=90"
+              alt="Ordinateur portable"
+            />
+            <div class="float-card">
+              <b>Équipez vos idées.</b><small>Découvrez notre sélection</small>
+            </div>
+            <div class="gold-dot">GW<br /><small>INFO</small></div>
+          </div>
+        </div>
+        <div class="container hero-foot">
+          <span>ÉQUIPEMENTS INFORMATIQUES</span><i></i
+          ><span>QUALITÉ · CONSEIL · SERVICE</span>
+        </div>
+      </section>
+      <section class="benefits" id="atouts">
+        <div class="container benefits-grid">
+          <div>
+            <span>◇</span>
+            <section>
+              <b>Produits sélectionnés</b
+              ><small>Des équipements adaptés à vos besoins</small>
+            </section>
+          </div>
+          <div>
+            <span>◎</span>
+            <section>
+              <b>Conseils personnalisés</b
+              ><small>Un accompagnement dans votre choix</small>
+            </section>
+          </div>
+          <div>
+            <span>↗</span>
+            <section>
+              <b>Contact direct</b><small>Échangez avec notre équipe</small>
+            </section>
+          </div>
+        </div>
+      </section>
+      <section class="catalog section" id="catalogue">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <label>NOTRE SÉLECTION</label>
+              <h2>Découvrez nos <em>produits.</em></h2>
+              <p>
+                Parcourez notre sélection et consultez les photos de chaque
+                article.
+              </p>
+            </div>
+            <span class="catalog-count" id="catalogCount"></span>
+          </div>
+          <div class="catalog-tools">
+            <div class="filters" id="filters">
+              <button class="filter active" data-category="Tous">
+                Tout voir</button
+              ><button class="filter" data-category="Ordinateurs">
+                Ordinateurs</button
+              ><button class="filter" data-category="Téléphones">
+                Téléphones</button
+              ><button class="filter" data-category="Accessoires">
+                Accessoires
+              </button>
+            </div>
+            <label class="search"
+              ><span>⌕</span
+              ><input
+                id="searchInput"
+                type="search"
+                placeholder="Rechercher un produit…"
+            /></label>
+          </div>
+          <div class="product-grid" id="productGrid">
+            <div class="loading">Chargement du catalogue…</div>
+          </div>
+          <p class="fine-print">
+            Les prix et disponibilités sont à confirmer auprès de
+            Boutique-Godwin.
+          </p>
+        </div>
+      </section>
+      <section class="cta-band">
+        <div class="container cta-inner">
+          <div>
+            <label>VOUS RECHERCHEZ UN MODÈLE PRÉCIS ?</label>
+            <h2>Parlons de votre <em>prochain équipement.</em></h2>
+            <p>
+              Notre équipe peut vous aider à trouver le matériel qui vous
+              convient.
+            </p>
+          </div>
+          <a class="btn light" href="#contact">Contacter Boutique-Godwin →</a>
+        </div>
+      </section>
+      <section class="contact section" id="contact">
+        <div class="container contact-grid">
+          <div>
+            <label>RESTONS EN CONTACT</label>
+            <h2>Une question ?<br /><em>Nous sommes à votre écoute.</em></h2>
+            <p>
+              Demandez des informations sur un produit, son prix ou sa
+              disponibilité.
+            </p>
+          </div>
+          <div class="contact-panel">
+            <span class="contact-symbol">☎</span>
+            <div>
+              <b>Appelez-nous</b><a href="tel:+22892423331">+228 92 42 33 31</a
+              ><a href="tel:+22898374212">+228 98 37 42 12</a>
+            </div>
+            <p>
+              Vous pouvez également nous contacter directement par téléphone.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container footer">
+        <a class="brand footer-brand" href="#accueil"
+          ><img src="assets/images/boutique-godwin-logo.jpeg" alt="" /><span
+            ><b>BOUTIQUE-GODWIN</b><small>INFORMATIQUE</small></span
+          ></a
+        ><small
+          >© <span id="year"></span> Zomayi Koami Wofa GabTech. Tous droits
+          réservés.</small
+        ><a href="#accueil">Retour en haut ↑</a>
+      </div>
+    </footer>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

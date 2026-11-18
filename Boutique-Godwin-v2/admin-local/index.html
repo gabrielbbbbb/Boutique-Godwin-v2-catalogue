@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration | Boutique-Godwin</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div>
+        <h1>Boutique-Godwin</h1>
+        <p>Panneau d'administration local</p>
+      </div>
+      <span class="admin-status">Mode local</span>
+    </header>
+
+    <main class="admin-container">
+      <section class="admin-heading">
+        <div>
+          <h2>Gestion des produits</h2>
+          <p>Ajoute, modifie et supprime tes produits.</p>
+        </div>
+      </section>
+
+      <section class="admin-layout">
+        <div class="form-card">
+          <h3 id="form-title">Ajouter un produit</h3>
+
+          <form id="product-form">
+            <input type="hidden" id="product-id" />
+
+            <label for="product-name">Nom du produit</label>
+            <input
+              type="text"
+              id="product-name"
+              placeholder="Ex : HP EliteBook 840"
+              required
+            />
+
+            <label for="product-category">Catégorie</label>
+            <select id="product-category" required>
+              <option value="">Choisir une catégorie</option>
+              <option value="Ordinateurs">Ordinateurs</option>
+              <option value="Téléphones">Téléphones</option>
+              <option value="Accessoires">Accessoires</option>
+              <option value="Autres">Autres</option>
+            </select>
+
+            <label for="product-price">Prix (FCFA)</label>
+            <input
+              type="number"
+              id="product-price"
+              min="0"
+              placeholder="Ex : 150000"
+              required
+            />
+
+            <label for="product-description">Description</label>
+            <textarea
+              id="product-description"
+              placeholder="Description du produit..."
+              rows="5"
+              required
+            ></textarea>
+
+            <label for="product-images"> Photos du produit (3 minimum) </label>
+            <input type="file" id="product-images" accept="image/*" multiple />
+
+            <p id="image-count">Aucune photo sélectionnée.</p>
+
+            <div id="image-preview" class="image-preview"></div>
+
+            <button type="submit" id="save-button">
+              Enregistrer le produit
+            </button>
+
+            <button type="button" id="cancel-edit" class="cancel-button" hidden>
+              Annuler la modification
+            </button>
+          </form>
+        </div>
+
+        <div class="products-card">
+          <div class="products-heading">
+            <h3>Mes produits</h3>
+            <span id="product-count">0 produit</span>
+          </div>
+
+          <div id="products-list">
+            <p class="empty-message">
+              Aucun produit enregistré pour le moment.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
