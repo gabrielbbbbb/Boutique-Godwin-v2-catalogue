@@ -91,7 +91,7 @@ imageInput.addEventListener("change", () => {
   showImagePreview();
 });
 
-function showImagePreview() {
+/* function showImagePreview() {
   imagePreview.innerHTML = "";
 
   const photos = [
@@ -189,7 +189,7 @@ function showImagePreview() {
     card.appendChild(controls);
     imagePreview.appendChild(card);
   });
-}
+} */
 
 // MOVE PHOTO
 function movePhoto(position, direction) {
@@ -225,7 +225,7 @@ function movePhoto(position, direction) {
 }
 
 // REMOVE PHOTO
-function removePhoto(photo) {
+/* function removePhoto(photo) {
   if (photo.type === "existing") {
     existingImages.splice(photo.index, 1);
   } else {
@@ -233,7 +233,7 @@ function removePhoto(photo) {
   }
 
   showImagePreview();
-}
+} */
 
 function replacePhoto(photo) {
   const input = document.createElement("input");
@@ -314,9 +314,10 @@ function showImagePreview() {
     const controls = document.createElement("div");
     controls.style.cssText = `
             display:flex;
+            flex-wrap:wrap;
             justify-content:space-around;
-            padding:7px;
-            gap:5px;
+            padding:5px;
+            gap:1px;
         `;
 
     function createButton(label, action, disabled = false) {
@@ -354,7 +355,15 @@ function showImagePreview() {
     controls.appendChild(createButton("↻", () => replacePhoto(photo)));
 
     // DELETE
-    controls.appendChild(createButton("×", () => removePhoto(photo)));
+    // DELETE
+    const deleteButton = createButton("✕", () => removePhoto(photo));
+
+    deleteButton.style.background = "#fee4e2";
+    deleteButton.style.color = "#d92d20";
+    deleteButton.style.fontWeight = "bold";
+    deleteButton.style.fontSize = "18px";
+
+    controls.appendChild(deleteButton);
 
     card.appendChild(controls);
     imagePreview.appendChild(card);
@@ -395,7 +404,7 @@ function movePhoto(position, direction) {
 }
 
 // REMOVE PHOTO
-/* function removePhoto(photo) {
+function removePhoto(photo) {
   if (photo.type === "existing") {
     existingImages.splice(photo.index, 1);
   } else {
@@ -403,7 +412,7 @@ function movePhoto(position, direction) {
   }
 
   showImagePreview();
-} */
+}
 
 // RESET FORM
 function resetForm() {
@@ -601,3 +610,88 @@ async function init() {
 }
 
 init();
+
+const exportButton = document.getElementById("export-button");
+
+function getImageExtension(image) {
+  const extensions = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+  };
+
+  return extensions[image.type] || "jpg";
+}
+
+async function exportCatalog() {
+  try {
+    const products = await getAllProducts();
+
+    if (products.length === 0) {
+      alert("Aucun produit à exporter.");
+      return;
+    }
+
+    if (typeof JSZip === "undefined") {
+      alert(
+        "La bibliothèque ZIP n'est pas chargée. Vérifie ta connexion Internet.",
+      );
+      return;
+    }
+
+    const zip = new JSZip();
+    const exportedProducts = [];
+
+    for (const product of products) {
+      const imagePaths = [];
+
+      for (let i = 0; i < product.images.length; i++) {
+        const image = product.images[i];
+
+        const extension = getImageExtension(image);
+
+        const imagePath = `assets/products/${product.id}/image-${i + 1}.${extension}`;
+
+        zip.file(imagePath, image);
+
+        imagePaths.push(imagePath);
+      }
+
+      exportedProducts.push({
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+        images: imagePaths,
+        createdAt: product.createdAt,
+      });
+    }
+
+    zip.file("data/products.json", JSON.stringify(exportedProducts, null, 2));
+
+    const blob = await zip.generateAsync({
+      type: "blob",
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Boutique-Godwin-Export.zip";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    alert("Catalogue exporté avec succès !");
+  } catch (error) {
+    console.error(error);
+    alert("Une erreur est survenue pendant l'exportation.");
+  }
+}
+
+exportButton.addEventListener("click", exportCatalog);

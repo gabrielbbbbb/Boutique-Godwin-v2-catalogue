@@ -281,3 +281,25 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+#export-button {
+  background: #039855;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 15px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+#export-button:hover {
+  background: #027a45;
+}
+
+@media (max-width: 600px) {
+  #export-button {
+    width: 100%;
+  }
+}
