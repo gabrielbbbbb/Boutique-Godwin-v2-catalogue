@@ -1,44 +1,16 @@
 [
   {
-    "id": "BG-001",
-    "name": "HP EliteBook 840 G8",
+    "id": 2,
+    "name": "HP Latitude  5055",
     "category": "Ordinateurs",
-    "price": 285000,
-    "description": "Ordinateur professionnel élégant, adapté au travail, aux études et à la mobilité.",
-    "badge": "Sélection",
-    "available": true,
+    "price": 150000,
+    "description": "HP Disque SSD 256gb\nRam 8gb\nBactérie 4h\nClavier retro-éclairé",
     "images": [
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&auto=format&fit=crop&q=85"
-    ]
-  },
-  {
-    "id": "BG-002",
-    "name": "Dell Latitude 5420",
-    "category": "Ordinateurs",
-    "price": 260000,
-    "description": "Un ordinateur fiable pour la bureautique, les études et les déplacements.",
-    "badge": "Populaire",
-    "available": true,
-    "images": [
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&auto=format&fit=crop&q=85"
-    ]
-  },
-  {
-    "id": "BG-003",
-    "name": "Pack accessoires informatiques",
-    "category": "Accessoires",
-    "price": 25000,
-    "description": "Une sélection d'accessoires utiles pour compléter votre installation.",
-    "badge": "",
-    "available": true,
-    "images": [
-      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=1200&auto=format&fit=crop&q=85"
-    ]
+      "assets/products/2/image-1.png",
+      "assets/products/2/image-2.jpg",
+      "assets/products/2/image-3.jpg",
+      "assets/products/2/image-4.jpg"
+    ],
+    "createdAt": "2026-11-18T08:17:38.856Z"
   }
 ]
