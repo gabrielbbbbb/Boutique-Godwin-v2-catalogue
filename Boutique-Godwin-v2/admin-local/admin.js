@@ -94,22 +94,316 @@ imageInput.addEventListener("change", () => {
 function showImagePreview() {
   imagePreview.innerHTML = "";
 
-  const total = existingImages.length + selectedImages.length;
+  const photos = [
+    ...existingImages.map((file, index) => ({
+      file,
+      type: "existing",
+      index,
+    })),
+    ...selectedImages.map((file, index) => ({
+      file,
+      type: "selected",
+      index,
+    })),
+  ];
 
-  imageCount.textContent = `${total} photo(s) au total. Minimum requis : 3.`;
+  imageCount.textContent = `${photos.length} photo(s) au total. Minimum requis : 3.`;
 
-  existingImages.forEach((image) => {
+  photos.forEach((photo, position) => {
+    const card = document.createElement("div");
+
+    card.style.cssText = `
+            border:1px solid #e4e7ec;
+            border-radius:8px;
+            overflow:hidden;
+            background:white;
+        `;
+
     const img = document.createElement("img");
-    img.src = URL.createObjectURL(image);
-    imagePreview.appendChild(img);
-  });
+    img.src = URL.createObjectURL(photo.file);
+    img.alt = "Photo du produit";
+    img.style.cssText = `
+            width:100%;
+            height:100px;
+            object-fit:cover;
+            display:block;
+        `;
 
-  selectedImages.forEach((image) => {
-    const img = document.createElement("img");
-    img.src = URL.createObjectURL(image);
-    imagePreview.appendChild(img);
+    card.appendChild(img);
+
+    if (position === 0) {
+      const badge = document.createElement("div");
+      badge.textContent = "★ Photo principale";
+      badge.style.cssText = `
+                background:#155eef;
+                color:white;
+                text-align:center;
+                padding:6px;
+                font-size:11px;
+            `;
+      card.appendChild(badge);
+    }
+
+    const controls = document.createElement("div");
+    controls.style.cssText = `
+            display:flex;
+            justify-content:space-around;
+            padding:7px;
+            gap:5px;
+        `;
+
+    function createButton(label, action, disabled = false) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = label;
+      button.disabled = disabled;
+      button.style.cssText = `
+                border:0;
+                border-radius:5px;
+                padding:6px 9px;
+                cursor:pointer;
+                background:${disabled ? "#eaecf0" : "#eff4ff"};
+                color:${disabled ? "#98a2b3" : "#155eef"};
+            `;
+      button.addEventListener("click", action);
+      return button;
+    }
+
+    // MOVE LEFT
+    controls.appendChild(
+      createButton("←", () => movePhoto(position, -1), position === 0),
+    );
+
+    // MOVE RIGHT
+    controls.appendChild(
+      createButton(
+        "→",
+        () => movePhoto(position, 1),
+        position === photos.length - 1,
+      ),
+    );
+
+    // DELETE
+    controls.appendChild(createButton("×", () => removePhoto(photo)));
+
+    card.appendChild(controls);
+    imagePreview.appendChild(card);
   });
 }
+
+// MOVE PHOTO
+function movePhoto(position, direction) {
+  const photos = [
+    ...existingImages.map((file) => ({
+      file,
+      type: "existing",
+    })),
+    ...selectedImages.map((file) => ({
+      file,
+      type: "selected",
+    })),
+  ];
+
+  const newPosition = position + direction;
+
+  if (newPosition < 0 || newPosition >= photos.length) return;
+
+  [photos[position], photos[newPosition]] = [
+    photos[newPosition],
+    photos[position],
+  ];
+
+  existingImages = photos
+    .filter((photo) => photo.type === "existing")
+    .map((photo) => photo.file);
+
+  selectedImages = photos
+    .filter((photo) => photo.type === "selected")
+    .map((photo) => photo.file);
+
+  showImagePreview();
+}
+
+// REMOVE PHOTO
+function removePhoto(photo) {
+  if (photo.type === "existing") {
+    existingImages.splice(photo.index, 1);
+  } else {
+    selectedImages.splice(photo.index, 1);
+  }
+
+  showImagePreview();
+}
+
+function replacePhoto(photo) {
+  const input = document.createElement("input");
+
+  input.type = "file";
+  input.accept = "image/*";
+
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+
+    if (!file || !file.type.startsWith("image/")) return;
+
+    if (photo.type === "existing") {
+      existingImages[photo.index] = file;
+    } else {
+      selectedImages[photo.index] = file;
+    }
+
+    showImagePreview();
+  });
+
+  input.click();
+}
+
+function showImagePreview() {
+  imagePreview.innerHTML = "";
+
+  const photos = [
+    ...existingImages.map((file, index) => ({
+      file,
+      type: "existing",
+      index,
+    })),
+    ...selectedImages.map((file, index) => ({
+      file,
+      type: "selected",
+      index,
+    })),
+  ];
+
+  imageCount.textContent = `${photos.length} photo(s) au total. Minimum requis : 3.`;
+
+  photos.forEach((photo, position) => {
+    const card = document.createElement("div");
+
+    card.style.cssText = `
+            border:1px solid #e4e7ec;
+            border-radius:8px;
+            overflow:hidden;
+            background:white;
+        `;
+
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(photo.file);
+    img.alt = "Photo du produit";
+    img.style.cssText = `
+            width:100%;
+            height:100px;
+            object-fit:cover;
+            display:block;
+        `;
+
+    card.appendChild(img);
+
+    if (position === 0) {
+      const badge = document.createElement("div");
+      badge.textContent = "★ Photo principale";
+      badge.style.cssText = `
+                background:#155eef;
+                color:white;
+                text-align:center;
+                padding:6px;
+                font-size:11px;
+            `;
+      card.appendChild(badge);
+    }
+
+    const controls = document.createElement("div");
+    controls.style.cssText = `
+            display:flex;
+            justify-content:space-around;
+            padding:7px;
+            gap:5px;
+        `;
+
+    function createButton(label, action, disabled = false) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = label;
+      button.disabled = disabled;
+      button.style.cssText = `
+                border:0;
+                border-radius:5px;
+                padding:6px 9px;
+                cursor:pointer;
+                background:${disabled ? "#eaecf0" : "#eff4ff"};
+                color:${disabled ? "#98a2b3" : "#155eef"};
+            `;
+      button.addEventListener("click", action);
+      return button;
+    }
+
+    // MOVE LEFT
+    controls.appendChild(
+      createButton("←", () => movePhoto(position, -1), position === 0),
+    );
+
+    // MOVE RIGHT
+    controls.appendChild(
+      createButton(
+        "→",
+        () => movePhoto(position, 1),
+        position === photos.length - 1,
+      ),
+    );
+
+    // REPLACE
+    controls.appendChild(createButton("↻", () => replacePhoto(photo)));
+
+    // DELETE
+    controls.appendChild(createButton("×", () => removePhoto(photo)));
+
+    card.appendChild(controls);
+    imagePreview.appendChild(card);
+  });
+}
+
+// MOVE PHOTO
+function movePhoto(position, direction) {
+  const photos = [
+    ...existingImages.map((file) => ({
+      file,
+      type: "existing",
+    })),
+    ...selectedImages.map((file) => ({
+      file,
+      type: "selected",
+    })),
+  ];
+
+  const newPosition = position + direction;
+
+  if (newPosition < 0 || newPosition >= photos.length) return;
+
+  [photos[position], photos[newPosition]] = [
+    photos[newPosition],
+    photos[position],
+  ];
+
+  existingImages = photos
+    .filter((photo) => photo.type === "existing")
+    .map((photo) => photo.file);
+
+  selectedImages = photos
+    .filter((photo) => photo.type === "selected")
+    .map((photo) => photo.file);
+
+  showImagePreview();
+}
+
+// REMOVE PHOTO
+/* function removePhoto(photo) {
+  if (photo.type === "existing") {
+    existingImages.splice(photo.index, 1);
+  } else {
+    selectedImages.splice(photo.index, 1);
+  }
+
+  showImagePreview();
+} */
 
 // RESET FORM
 function resetForm() {
