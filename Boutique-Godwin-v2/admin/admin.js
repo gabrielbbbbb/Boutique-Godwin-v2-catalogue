@@ -2,6 +2,8 @@
 const SUPABASE_URL = "https://zgflbklshqwoynvumekr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_OqRMAx0t1q1WvtQ0gt9MrA_jFAi3TGz";
 
+const ADMIN_UID = "9549a6e8-e3a2-450d-b392-5d83b18ebaed";
+
 // Gestion du mode modification
 let editingProduct = null;
 let retainedImages = [];
@@ -110,14 +112,43 @@ async function loadProducts() {
       (product) => `
   <article class="admin-product-item">
 
-  <div class="admin-product-image-container">
-    <img
-      src="${escapeHTML(product.images?.[0] || "")}"
-      alt="${escapeHTML(product.name)}"
-      class="admin-product-image"
-      onerror="this.style.display='none'"
-    >
-  </div>
+ <div class="admin-product-gallery">
+  ${(product.images || [])
+    .slice(0, 3)
+    .map(
+      (image, index) => `
+    <a href="${escapeHTML(image)}" target="_blank" rel="noopener noreferrer">
+      <img
+        src="${escapeHTML(image)}"
+        alt="${escapeHTML(product.name)} - Photo ${index + 1}"
+        class="admin-product-image"
+        loading="lazy"
+      >
+    </a>
+  `,
+    )
+    .join("")}
+
+  ${
+    product.images?.length > 3
+      ? `<details class="extra-photos">
+          <summary>Voir les ${product.images.length} photos</summary>
+          <div class="extra-photos-gallery">
+            ${product.images
+              .slice(3)
+              .map(
+                (image, index) => `
+              <a href="${escapeHTML(image)}" target="_blank" rel="noopener noreferrer">
+                <img src="${escapeHTML(image)}" alt="Photo ${index + 4}" loading="lazy">
+              </a>
+            `,
+              )
+              .join("")}
+          </div>
+        </details>`
+      : ""
+  }
+</div>
 
   <div class="admin-product-info">
     <strong>${escapeHTML(product.name)}</strong>
@@ -155,11 +186,16 @@ logoutButton.addEventListener("click", async () => {
 
 // Vérifier la session au chargement
 db.auth.onAuthStateChange((event, session) => {
-  if (session) {
+  if (session?.user?.id === ADMIN_UID) {
     showDashboard();
   } else {
     dashboard.hidden = true;
     loginContainer.hidden = false;
+
+    if (session) {
+      loginMessage.textContent =
+        "Ce compte n'est pas autorisé à accéder à l'administration.";
+    }
   }
 });
 
@@ -176,6 +212,7 @@ const addProductButton = document.querySelector("#addProductButton");
 const cancelProductButton = document.querySelector("#cancelProductButton");
 const productImagesInput = document.querySelector("#productImages");
 const imageCount = document.querySelector("#imageCount");
+const existingImages = document.querySelector("#existingImages");
 const productFormMessage = document.querySelector("#productFormMessage");
 const saveProductButton = document.querySelector("#saveProductButton");
 
@@ -236,6 +273,37 @@ async function uploadImage(file) {
 
   return result.secure_url;
 }
+
+function renderExistingImages() {
+  existingImages.innerHTML = retainedImages
+    .map(
+      (image, index) => `
+      <div class="existing-image-item">
+        <img src="${escapeHTML(image)}" alt="Photo ${index + 1}">
+        <button
+          type="button"
+          class="remove-existing-image"
+          data-index="${index}"
+        >
+          Retirer
+        </button>
+      </div>
+    `,
+    )
+    .join("");
+}
+
+existingImages.addEventListener("click", (e) => {
+  const button = e.target.closest(".remove-existing-image");
+  if (!button) return;
+
+  const index = Number(button.dataset.index);
+  retainedImages.splice(index, 1);
+
+  renderExistingImages();
+
+  imageCount.textContent = `${retainedImages.length} ancienne(s) photo(s) conservée(s).`;
+});
 
 // Enregistrer le produit
 
@@ -311,6 +379,7 @@ productForm.addEventListener("submit", async (e) => {
     productForm.reset();
     editingProduct = null;
     retainedImages = [];
+    renderExistingImages();
 
     imageCount.textContent = "Aucune photo sélectionnée.";
     productFormMessage.textContent = "";
@@ -386,6 +455,7 @@ adminProducts.addEventListener("click", async (e) => {
 
     editingProduct = product;
     retainedImages = Array.isArray(product.images) ? [...product.images] : [];
+    renderExistingImages();
 
     // Remplir le formulaire
     document.querySelector("#productName").value = product.name;
@@ -440,6 +510,7 @@ adminProducts.addEventListener("click", async (e) => {
 
   editingProduct = product;
   retainedImages = [...(product.images || [])];
+  renderExistingImages();
 
   document.querySelector("#productName").value = product.name;
   document.querySelector("#productCategory").value = product.category;
