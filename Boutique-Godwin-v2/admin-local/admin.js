@@ -20,6 +20,7 @@ const productCount = document.getElementById("product-count");
 const formTitle = document.getElementById("form-title");
 const saveButton = document.getElementById("save-button");
 const cancelButton = document.getElementById("cancel-edit");
+const productAvailability = document.getElementById("product-availability");
 
 // OPEN DATABASE
 function openDatabase() {
@@ -69,6 +70,15 @@ function saveProduct(product) {
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
+    /*  product = {
+      name: productName.value.trim(),
+      category: productCategory.value,
+      price: Number(productPrice.value),
+      description: productDescription.value.trim(),
+      available: productAvailability.value === "true",
+      images,
+      createdAt: oldProduct?.createdAt || new Date().toISOString(),
+    }; */
   });
 }
 
@@ -426,6 +436,7 @@ function resetForm() {
   saveButton.textContent = "Enregistrer le produit";
   cancelButton.hidden = true;
   imageInput.required = true;
+  productAvailability.value = "true";
 }
 
 // CREATE / UPDATE
@@ -558,6 +569,7 @@ async function renderProducts() {
 async function editProduct(id) {
   const products = await getAllProducts();
   const product = products.find((p) => p.id === id);
+  productAvailability.value = product.available === false ? "false" : "true";
 
   if (!product) return;
 
@@ -664,6 +676,7 @@ async function exportCatalog() {
         category: product.category,
         price: product.price,
         description: product.description,
+        available: product.available !== false,
         images: imagePaths,
         createdAt: product.createdAt,
       });

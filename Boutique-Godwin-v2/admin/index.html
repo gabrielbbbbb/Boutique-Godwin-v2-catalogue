@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administration | Boutique Godwin</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <main class="login-container">
+      <div class="login-card">
+        <img
+          src="../assets/images/boutique-godwin-logo.jpeg"
+          alt="Boutique Godwin"
+          class="logo"
+        />
+
+        <h1>Administration</h1>
+        <p>Connectez-vous pour gérer vos produits.</p>
+
+        <form id="loginForm">
+          <label for="email">Adresse e-mail</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="Votre adresse e-mail"
+          />
+
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            required
+            placeholder="Votre mot de passe"
+          />
+
+          <button type="submit" id="loginButton">Se connecter</button>
+
+          <p id="loginMessage" role="status"></p>
+        </form>
+      </div>
+    </main>
+
+    <!-- TABLEAU DE BORD ADMIN -->
+    <main id="dashboard" class="dashboard" hidden>
+      <header class="dashboard-header">
+        <div>
+          <h1>Boutique Godwin</h1>
+          <p>Espace d'administration</p>
+        </div>
+
+        <button id="logoutButton" type="button">Déconnexion</button>
+      </header>
+
+      <section class="dashboard-content">
+        <div class="welcome-card">
+          <h2>Bienvenue ! 👋</h2>
+          <p>Gérez les produits de votre boutique depuis cet espace.</p>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <span>Total des produits</span>
+            <strong id="totalProducts">0</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>Produits disponibles</span>
+            <strong id="availableProducts">0</strong>
+          </div>
+
+          <div class="stat-card">
+            <span>Produits indisponibles</span>
+            <strong id="unavailableProducts">0</strong>
+          </div>
+        </div>
+
+        <div class="products-section">
+          <div class="section-heading">
+            <h2>Mes produits</h2>
+            <button id="addProductButton" type="button">
+              + Ajouter un produit
+            </button>
+          </div>
+
+          <div id="adminProducts">
+            <p>Chargement des produits...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMULAIRE AJOUT PRODUIT -->
+      <section id="productFormSection" class="product-form-section" hidden>
+        <h2 id="productFormTitle">Ajouter un produit</h2>
+
+        <form id="productForm">
+          <label for="productName">Nom du produit</label>
+          <input
+            type="text"
+            id="productName"
+            required
+            placeholder="Ex : HP EliteBook 840 G5"
+          />
+
+          <label for="productCategory">Catégorie</label>
+          <select id="productCategory" required>
+            <option value="">Choisir une catégorie</option>
+            <option value="Ordinateurs">Ordinateurs</option>
+            <option value="Téléphones">Téléphones</option>
+            <option value="Accessoires">Accessoires</option>
+            <option value="Voitures">Voitures</option>
+            <option value="Autres">Autres</option>
+
+            <!--  <label for="productCategory">Catégorie</label>
+          <select id="productCategory" required>
+            <option value="">Choisir une catégorie</option>
+            <option value="Ordinateurs portables">Ordinateurs portables</option>
+            <option value="Ordinateurs de bureau">Ordinateurs de bureau</option>
+            <option value="Accessoires">Accessoires</option>
+            <option value="Autres">Autres</option> -->
+          </select>
+
+          <label for="productPrice">Prix (FCFA)</label>
+          <input
+            type="number"
+            id="productPrice"
+            min="0"
+            required
+            placeholder="Ex : 125000"
+          />
+
+          <label for="productDescription">Description</label>
+          <textarea
+            id="productDescription"
+            rows="5"
+            placeholder="Décrivez le produit..."
+          ></textarea>
+
+          <label for="productImages">Photos du produit (minimum 3)</label>
+          <input type="file" id="productImages" accept="image/*" multiple />
+
+          <p id="imageCount">Aucune photo sélectionnée.</p>
+
+          <label for="productAvailability">Disponibilité</label>
+          <select id="productAvailability">
+            <option value="true">Disponible</option>
+            <option value="false">Indisponible</option>
+          </select>
+
+          <div class="form-actions">
+            <button type="submit" id="saveProductButton">
+              Enregistrer le produit
+            </button>
+
+            <button type="button" id="cancelProductButton">Annuler</button>
+          </div>
+
+          <p id="productFormMessage" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -5,9 +5,10 @@
     "category": "Ordinateurs",
     "price": 150000,
     "description": "HP Disque SSD 256gb\nRam 8gb\nBactérie 4h\nClavier retro-éclairé",
+    "available": true,
     "images": [
-      "assets/products/2/image-1.png",
-      "assets/products/2/image-2.jpg",
+      "assets/products/2/image-1.jpg",
+      "assets/products/2/image-2.png",
       "assets/products/2/image-3.jpg",
       "assets/products/2/image-4.jpg"
     ],
@@ -15,58 +16,74 @@
   },
   {
     "id": 3,
-    "name": "HP ProBook 450 G8",
+    "name": "Azus 5055",
     "category": "Ordinateurs",
-    "price": 200000,
-    "description": "HP Disque SSD 512gb\nRam 16gb\nBactérie 6h\nClavier retro-éclairé",
+    "price": 540000,
+    "description": "hdd 512gb\nRam 16gb\nclavier retro(éclaire",
+    "available": true,
     "images": [
-      "assets/products/3/image-1.png",
-      "assets/products/3/image-2.jpg",
-      "assets/products/3/image-3.jpg",
-      "assets/products/3/image-4.jpg"
+      "assets/products/3/image-1.jpg",
+      "assets/products/3/image-2.webp",
+      "assets/products/3/image-3.jpg"
     ],
-    "createdAt": "2026-11-18T08:17:38.856Z"
+    "createdAt": "2026-11-18T10:09:52.617Z"
   },
   {
-    "id": "BG-001",
-    "name": "HP EliteBook 840 G8",
+    "id": 4,
+    "name": "Acer",
     "category": "Ordinateurs",
-    "price": 285000,
-    "description": "Ordinateur professionnel élégant, adapté au travail, aux études et à la mobilité.",
-    "badge": "Sélection",
+    "price": 90000,
+    "description": "ACER CORE I5 \nSSD:128GB\nRAM:8GB\nCLAVIER PAVÉ NUMÉRIQUE \nÉCRAN 15.6\nBATTERIE 3H",
     "available": true,
     "images": [
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&auto=format&fit=crop&q=85"
-    ]
+      "assets/products/4/image-1.jpg",
+      "assets/products/4/image-2.jpg",
+      "assets/products/4/image-3.jpg"
+    ],
+    "createdAt": "2026-11-18T12:55:58.462Z"
   },
   {
-    "id": "BG-002",
-    "name": "Dell Latitude 5420",
+    "id": 5,
+    "name": "DELL",
     "category": "Ordinateurs",
-    "price": 260000,
-    "description": "Un ordinateur fiable pour la bureautique, les études et les déplacements.",
-    "badge": "Populaire",
+    "price": 130000,
+    "description": "DELL CORE I5 8ème génération \nSSD 256GB\nRAM 8GB\nÉCRAN 13.3\nBATTERIE 4H\nCLAVIER FRANÇAIS",
     "available": true,
     "images": [
-      "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&auto=format&fit=crop&q=85"
-    ]
+      "assets/products/5/image-1.jpg",
+      "assets/products/5/image-2.jpg",
+      "assets/products/5/image-3.jpg",
+      "assets/products/5/image-4.jpg"
+    ],
+    "createdAt": "2026-11-18T13:00:24.727Z"
   },
   {
-    "id": "BG-003",
-    "name": "Pack accessoires informatiques",
+    "id": 6,
+    "name": "Lénovo",
+    "category": "Ordinateurs",
+    "price": 100000,
+    "description": "Lenovo Core i5\nModèle IdeaPad V130-15 \nProcesseur Intel Core i5-7020U 2.30 ~ 2.30GHz (4 CPUs) \n7ème Génération \nÉcran 15.6\" Full HD\nEtat Habillage 20/20\nRAM 4GB DDR4\nDisk : SSD Nvme 128GB\nGraphique Intel HD 620 (bon pour le graphisme)\nMémoire du GPU Intel partagée 4Gb\nClavier alpha numérique\nWindows 11vpro Officiel\nBluetooth\nBatterie 5h",
+    "available": true,
+    "images": [
+      "assets/products/6/image-1.jpg",
+      "assets/products/6/image-2.jpg",
+      "assets/products/6/image-3.jpg"
+    ],
+    "createdAt": "2026-11-18T13:03:28.232Z"
+  },
+  {
+    "id": 7,
+    "name": "Fujitsu",
     "category": "Accessoires",
-    "price": 25000,
-    "description": "Une sélection d'accessoires utiles pour compléter votre installation.",
-    "badge": "",
+    "price": 4000,
+    "description": "Mouse M520\nP/NS26381-K467-V101",
     "available": true,
     "images": [
-      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&auto=format&fit=crop&q=85",
-      "https://images.unsplash.com/photo-1527814050087-3793815479db?w=1200&auto=format&fit=crop&q=85"
-    ]
+      "assets/products/7/image-1.jpg",
+      "assets/products/7/image-2.jpg",
+      "assets/products/7/image-3.jpg",
+      "assets/products/7/image-4.jpg"
+    ],
+    "createdAt": "2026-11-18T13:21:14.604Z"
   }
 ]
